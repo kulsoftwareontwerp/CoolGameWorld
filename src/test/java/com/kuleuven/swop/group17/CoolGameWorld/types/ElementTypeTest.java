@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -35,7 +36,7 @@ public class ElementTypeTest {
 	 * Test method for
 	 * {@link com.kuleuven.swop.group17.CoolGameWorld.types.CoolGameWorld#toOrientationString(com.kuleuven.swop.group17.CoolGameWorld.types.CoolGameWorld)}.
 	 */
-	@Test
+	@Ignore
 	public void testToBoatStateString() {
 		for (ElementType et : ElementType.values()) {
 			for (BoatState o : BoatState.values()) {
