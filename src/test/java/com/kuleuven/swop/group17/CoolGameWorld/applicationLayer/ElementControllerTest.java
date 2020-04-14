@@ -38,6 +38,7 @@ import com.kuleuven.swop.group17.CoolGameWorld.events.ElementAddedEvent;
 import com.kuleuven.swop.group17.CoolGameWorld.events.ElementsClearedEvent;
 import com.kuleuven.swop.group17.CoolGameWorld.events.EventFactory;
 import com.kuleuven.swop.group17.CoolGameWorld.events.GUIListener;
+import com.kuleuven.swop.group17.CoolGameWorld.types.BoatState;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Coordinate;
 import com.kuleuven.swop.group17.CoolGameWorld.types.ElementType;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Orientation;
@@ -220,7 +221,7 @@ public class ElementControllerTest {
 
 		Set<Element> state = new HashSet<Element>();
 		Boat r = (Boat) ef.createElement(ElementType.BOAT, tf.createCoordinate(0, 0));
-		r.setOrientation(Orientation.DOWN);
+		r.setBoatState(BoatState.FLOATING);
 		state.add(r);
 		state.add(ef.createElement(ElementType.GOAL, tf.createCoordinate(2, 2)));
 		state.add(ef.createElement(ElementType.ICEBERG, tf.createCoordinate(2, 3)));

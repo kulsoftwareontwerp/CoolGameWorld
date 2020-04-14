@@ -51,6 +51,7 @@ import com.kuleuven.swop.group17.CoolGameWorld.guiLayer.BoatCanvas;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Coordinate;
 import com.kuleuven.swop.group17.CoolGameWorld.types.ElementType;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Orientation;
+import com.kuleuven.swop.group17.CoolGameWorld.types.BoatState;
 import com.kuleuven.swop.group17.CoolGameWorld.types.CoolGameWorldAction;
 import com.kuleuven.swop.group17.CoolGameWorld.types.CoolGameWorldPredicate;
 import com.kuleuven.swop.group17.CoolGameWorld.types.CoolGameWorldSnapshot;
@@ -227,7 +228,7 @@ public class CoolGameWorldTest {
 		// At last The CoolGameWorld itself is also initialized by adding elements and
 		// a boat. A boatGameWorld should at least add a boat, otherwise it won't be
 		// able to do any meaningful actions.
-		verify(boatController).addBoat(any(), any(Orientation.class));
+		verify(boatController).addBoat(any(), any(BoatState.class));
 	}
 
 	/**
@@ -292,7 +293,7 @@ public class CoolGameWorldTest {
 	@Test
 	public void testEvaluate() {
 		world.evaluate(typeFactory.createPredicate(SupportedPredicates.ICEBERGINFRONT));
-		verify(boatController).checkIfWallInFront();
+		verify(boatController).checkIfIceBergInFront();
 	}
 	
 	
@@ -317,7 +318,7 @@ public class CoolGameWorldTest {
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testEvaluateUnexpectedException() {
-		doThrow(new NoSuchElementException("I did not see this comming.")).when(boatController).checkIfWallInFront();
+		doThrow(new NoSuchElementException("I did not see this comming.")).when(boatController).checkIfIceBergInFront();
 
 		world.evaluate(typeFactory.createPredicate(SupportedPredicates.ICEBERGINFRONT));
 		Mockito.verifyNoInteractions(boatController);
@@ -380,7 +381,7 @@ public class CoolGameWorldTest {
 		
 		Set<Element> state = new HashSet<Element>();
 		Boat r =(Boat) ef.createElement(ElementType.BOAT, typeFactory.createCoordinate(0, 0));
-		r.setOrientation(Orientation.DOWN);
+		r.setBoatState(BoatState.FLOATING);
 		state.add(r);
 		state.add(ef.createElement(ElementType.GOAL,typeFactory.createCoordinate(2, 2)));
 		state.add(ef.createElement(ElementType.ICEBERG,typeFactory.createCoordinate(2, 3)));
@@ -412,7 +413,7 @@ public class CoolGameWorldTest {
 
 		
 		
-		verify(boatController, times(1)).addBoat(any(Coordinate.class), any(Orientation.class));
+		verify(boatController, times(1)).addBoat(any(Coordinate.class), any(BoatState.class));
 		verify(elementController, times(5)).addElement(any(ElementType.class), any(Coordinate.class));
 		
 	}

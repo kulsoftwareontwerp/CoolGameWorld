@@ -6,6 +6,7 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
+import com.kuleuven.swop.group17.CoolGameWorld.types.BoatState;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Coordinate;
 import com.kuleuven.swop.group17.CoolGameWorld.types.ElementType;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Orientation;
@@ -23,7 +24,7 @@ public class Cell {
 	private ElementType type;
 	private String resourcePath;
 	private Coordinate coordinate;
-	private Orientation orientation;
+	private BoatState boatState;
 	private BufferedImage image;
 
 	/**
@@ -33,11 +34,35 @@ public class Cell {
 	 * @param coordinate  The coordinate of the cell.
 	 * @param orientation The orientation of the cell
 	 */
-	public Cell(Coordinate coordinate, Orientation orientation, ElementType type)  {
+	public Cell(Coordinate coordinate, BoatState boatState, ElementType type)  {
 		setCoordinate(coordinate);
 		setType(type);
-		setOrientation(orientation);
+		setBoatState(boatState);
 	}
+
+	/**
+	 * Retrieve the boatState associated with this Cell
+	 * 
+	 * @return the orientation associated with this Cell
+	 */
+	public BoatState getBoatState() {
+		return boatState;
+	}
+	
+	
+	/**
+	 * Set the boatState associated with this Cell
+	 * 
+	 * @param orientation The new orientation to be associated with this Cell
+	 */
+	public void setBoatState(BoatState boatState) {
+		this.boatState = boatState;
+		setResourcePath("images/" + getType().toBoatStateString(getBoatState()) + ".png");
+		createImage();
+		
+	}
+	
+	
 
 	/**
 	 * Set the Coordinate of this Cell.
@@ -93,29 +118,10 @@ public class Cell {
 		}
 		this.type = type;
 
-		setResourcePath("images/" + getType().toOrientationString(getOrientation()) + ".png");
+		setResourcePath("images/" + getType().toBoatStateString(getBoatState()) + ".png");
 		createImage();
 	}
 
-	/**
-	 * Retrieve the orientation associated with this Cell
-	 * 
-	 * @return the orientation associated with this Cell
-	 */
-	public Orientation getOrientation() {
-		return orientation;
-	}
-
-	/**
-	 * Set the orientation associated with this Cell
-	 * 
-	 * @param orientation The new orientation to be associated with this Cell
-	 */
-	public void setOrientation(Orientation orientation)  {
-		this.orientation = orientation;
-		setResourcePath("images/" + getType().toOrientationString(getOrientation()) + ".png");
-		createImage();
-	}
 
 	private String getResourcePath() {
 		return resourcePath;

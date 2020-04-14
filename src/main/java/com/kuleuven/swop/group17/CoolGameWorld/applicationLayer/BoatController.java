@@ -17,9 +17,12 @@ import com.kuleuven.swop.group17.CoolGameWorld.events.GUIListener;
 import com.kuleuven.swop.group17.CoolGameWorld.events.GUISubject;
 import com.kuleuven.swop.group17.CoolGameWorld.events.BoatAddedEvent;
 import com.kuleuven.swop.group17.CoolGameWorld.events.BoatChangedEvent;
+import com.kuleuven.swop.group17.CoolGameWorld.types.BoatState;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Coordinate;
 import com.kuleuven.swop.group17.CoolGameWorld.types.ElementType;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Orientation;
+import com.kuleuven.swop.group17.CoolGameWorld.types.SupportedActions;
+import com.kuleuven.swop.group17.GameWorldApi.Action;
 
 /**
  * The BoatController handles all requests regarding the management of a boat.
@@ -55,8 +58,8 @@ public class BoatController implements GUISubject {
 		this.guiListeners = guiListeners;
 	}
 
-	private void fireBoatAddedEvent(Coordinate coordinate, Orientation orientation) {
-		BoatAddedEvent event = eventFactory.createBoatAddedEvent(coordinate, orientation);
+	private void fireBoatAddedEvent(Coordinate coordinate,BoatState boatState) {
+		BoatAddedEvent event = eventFactory.createBoatAddedEvent(coordinate, boatState);
 
 		for (GUIListener listener : guiListeners) {
 			listener.onBoatAddedEvent(event);
@@ -65,7 +68,7 @@ public class BoatController implements GUISubject {
 
 	private void fireBoatChangeEvent() {
 		Boat boat = getBoat();
-		BoatChangedEvent event = eventFactory.createBoatChangedEvent(boat.getCoordinate(), boat.getOrientation());
+		BoatChangedEvent event = eventFactory.createBoatChangedEvent(boat.getCoordinate(),boat.getBoatState());
 
 		for (GUIListener listener : guiListeners) {
 			listener.onBoatChangeEvent(event);
@@ -79,9 +82,17 @@ public class BoatController implements GUISubject {
 	 */
 	void turnLeft() {
 		Boat boat = getBoat();
-		Orientation currentOrientation = boat.getOrientation();
-		Orientation newOrientation = currentOrientation.getLeft();
-		boat.setOrientation(newOrientation);
+		Coordinate cifor = getActionResult(getCoordinatesInFrontOfBoat(SupportedActions.TURNLEFT));
+		
+		if(cifor == null) 
+			boat.setBoatState(BoatState.CRASHED);
+		else
+			boat.setCoordinate(cifor);
+			
+		// If no solid objects are found on the new position, we move the boat into
+		// that position.
+		
+
 		fireBoatChangeEvent();
 	}
 
@@ -92,9 +103,17 @@ public class BoatController implements GUISubject {
 	 */
 	void turnRight() {
 		Boat boat = getBoat();
-		Orientation currentOrientation = boat.getOrientation();
-		Orientation newOrientation = currentOrientation.getRight();
-		boat.setOrientation(newOrientation);
+		Coordinate cifor = getActionResult(getCoordinatesInFrontOfBoat(SupportedActions.TURNRIGHT));
+		
+		if(cifor == null) 
+			boat.setBoatState(BoatState.CRASHED);
+		else
+			boat.setCoordinate(cifor);
+			
+		// If no solid objects are found on the new position, we move the boat into
+		// that position.
+		
+
 		fireBoatChangeEvent();
 	}
 
@@ -104,30 +123,17 @@ public class BoatController implements GUISubject {
 	 * @event BoatChangeEvent If the operation was successful.
 	 */
 	void moveForward() {
-
-		Coordinate cifor = getCoordinatesInFrontOfBoat();
-		Set<Element> elements = elementRepository.getElements(cifor);
-
-		// Check if the boat stays within the boundries of the Game Area, else do
-		// nothing
-		if (cifor.getX() < 0 || cifor.getX() > elementRepository.getGameAreaWidth() - 1 || cifor.getY() < 0
-				|| cifor.getY() > elementRepository.getGameAreaHeight() - 1) {
-			return;
-		}
-
-		Iterator<Element> iterator = elements.iterator();
-		while (iterator.hasNext()) {
-			Element element = iterator.next();
-			// If another solid element is already in the new spot of the boat, the
-			// position of the boat stays the same.
-			if (element instanceof SolidElement) {
-				return;
-			}
-		}
-
+		Boat boat = getBoat();
+		Coordinate cifor = getActionResult(getCoordinatesInFrontOfBoat(SupportedActions.MOVEFORWARD));
+		
+		if(cifor == null) 
+			boat.setBoatState(BoatState.CRASHED);
+		else
+			boat.setCoordinate(cifor);
+			
 		// If no solid objects are found on the new position, we move the boat into
 		// that position.
-		getBoat().setCoordinate(cifor);
+		
 
 		fireBoatChangeEvent();
 
@@ -144,25 +150,25 @@ public class BoatController implements GUISubject {
 	 *                              Coordinate is null.
 	 * 
 	 */
-	void addBoat(Coordinate coordinate, Orientation orientation){
-		if (orientation == null) {
-			throw new NullPointerException("The given Orientation can't be null.");
+	void addBoat(Coordinate coordinate, BoatState boatState){
+		if (boatState == null) {
+			throw new NullPointerException("The given BoatState can't be null.");
 		}
 		if (coordinate == null) {
 			throw new NullPointerException("The given Coordinate can't be null.");
 		}
 		elementRepository.addElement(ElementType.BOAT, coordinate);
-		getBoat().setOrientation(orientation);
-		fireBoatAddedEvent(coordinate, orientation);
+		getBoat().setBoatState(boatState);
+		fireBoatAddedEvent(coordinate, boatState);
 	}
 
 	/**
-	 * Check if there is a wall in front of the boat.
+	 * Check if there is a iceberg in front of the boat.
 	 * 
 	 * @return True if there is a wall in front of the boat, false otherwise.
 	 */
-	Boolean checkIfWallInFront() {
-		Coordinate cifor = getCoordinatesInFrontOfBoat();
+	Boolean checkIfIceBergInFront() {
+		Coordinate cifor = getCoordinatesInFrontOfBoat(SupportedActions.MOVEFORWARD);
 		Set<Element> elements = elementRepository.getElements(cifor);
 
 		Iterator<Element> iterator = elements.iterator();
@@ -185,28 +191,55 @@ public class BoatController implements GUISubject {
 		}
 	}
 
-	private Coordinate getCoordinatesInFrontOfBoat() {
+	private Coordinate getCoordinatesInFrontOfBoat(SupportedActions action) {
 		Boat boat = getBoat();
-		Orientation currentBoatOrientation = boat.getOrientation();
-
-		Coordinate rc = boat.getCoordinate();
-		Coordinate toReturn = rc;
-
-		switch (currentBoatOrientation) {
-		case UP:
-			toReturn = rc.setY(rc.getY() - 1);
-			break;
-		case DOWN:
-			toReturn = rc.setY(rc.getY() + 1);
-			break;
-		case LEFT:
-			toReturn = rc.setX(rc.getX() - 1);
-			break;
-		case RIGHT:
-			toReturn = rc.setX(rc.getX() + 1);
-			break;
+		//Orientation currentBoatOrientation = boat.getOrientation();
+		if(boat.getBoatState() == BoatState.FLOATING) {
+			Coordinate bc = boat.getCoordinate();
+			Coordinate toReturn = bc;
+			bc.setY(bc.getY() - 1);
+			switch (action) {
+			case MOVEFORWARD:
+				break;
+			case TURNLEFT:
+				bc.setX(bc.getX() - 1);
+				toReturn = bc;
+				break;
+			case TURNRIGHT:
+				toReturn = bc.setX(bc.getX() + 1);
+				break;
+			}
+			return toReturn;
 		}
-		return toReturn;
+		return boat.getCoordinate();
+	}
+	
+	private Coordinate getActionResult(Coordinate coordinate) {
+		Set<Element> elements = elementRepository.getElements(coordinate);
+
+		// Check if the boat stays within the boundries of the Game Area, else do
+		// nothing
+		if (coordinate.getY() < 0 || coordinate.getY() > elementRepository.getGameAreaHeight() - 1) {
+			return null;
+		}
+		
+		if(coordinate.getX() < 0) {
+			coordinate.setX(elementRepository.getGameAreaWidth()-1);
+		}
+		else if(coordinate.getX() > elementRepository.getGameAreaWidth() - 1){
+			coordinate.setX(1);
+		}
+
+		Iterator<Element> iterator = elements.iterator();
+		while (iterator.hasNext()) {
+			Element element = iterator.next();
+			// If another solid element is already in the new spot of the boat, the
+			// position of the boat stays the same.
+			if (element instanceof SolidElement) {
+				return null;
+			}
+		}
+		return coordinate;
 	}
 
 	@Override

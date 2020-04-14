@@ -16,6 +16,7 @@ import com.kuleuven.swop.group17.CoolGameWorld.guiLayer.BoatCanvas;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Coordinate;
 import com.kuleuven.swop.group17.CoolGameWorld.types.ElementType;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Orientation;
+import com.kuleuven.swop.group17.CoolGameWorld.types.BoatState;
 import com.kuleuven.swop.group17.CoolGameWorld.types.CoolGameWorldAction;
 import com.kuleuven.swop.group17.CoolGameWorld.types.CoolGameWorldPredicate;
 import com.kuleuven.swop.group17.CoolGameWorld.types.CoolGameWorldSnapshot;
@@ -76,7 +77,7 @@ public class CoolGameWorld implements GameWorld {
 	}
 
 	private void initializeCoolGameWorld() {
-		boatController.addBoat(typeFactory.createCoordinate(2, 3), Orientation.UP);
+		boatController.addBoat(typeFactory.createCoordinate(2, 3), BoatState.FLOATING);
 		elementController.addElement(ElementType.ICEBERG, typeFactory.createCoordinate(0, 0));
 		elementController.addElement(ElementType.ICEBERG, typeFactory.createCoordinate(4, 0));
 		elementController.addElement(ElementType.ICEBERG, typeFactory.createCoordinate(1, 2));
@@ -155,7 +156,7 @@ public class CoolGameWorld implements GameWorld {
 
 			switch (boatPredicate.getPredicate()) {
 			case ICEBERGINFRONT:
-				evaluation = boatController.checkIfWallInFront();
+				evaluation = boatController.checkIfIceBergInFront();
 				break;
 			}
 
@@ -194,7 +195,7 @@ public class CoolGameWorld implements GameWorld {
 		elementController.clearElements();
 		for (Element element : ((CoolGameWorldSnapshot) state).getElements()) {
 			if (element.getType() == ElementType.BOAT) {
-				boatController.addBoat(element.getCoordinate(), ((Boat) element).getOrientation());
+				boatController.addBoat(element.getCoordinate(),((Boat) element).getBoatState());
 			} else {
 				elementController.addElement(element.getType(), element.getCoordinate());
 			}

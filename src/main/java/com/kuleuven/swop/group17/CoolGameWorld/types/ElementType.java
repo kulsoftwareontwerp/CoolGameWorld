@@ -9,34 +9,34 @@ package com.kuleuven.swop.group17.CoolGameWorld.types;
 public enum ElementType {
 	ICEBERG{
 		public String toString() {
-			return "some king of cold white mountain.";
+			return "iceberg";
 		}
-		public String toOrientationString(Orientation orientation) {
+		public String toBoatStateString(BoatState boatState) {
 			return toString();
 		}
 	},
 	BOAT{
 		public String toString() {
-			return "The Titanic, strongest boat ever !";
+			return "boat";
 		}
 
-		@Override
-		public String toOrientationString(Orientation orientation) {
-			if(orientation==null) {
-				orientation = Orientation.UP;
+		
+		public String toBoatStateString(BoatState boatState) {
+			if(boatState==null) {
+				boatState = BoatState.ARRIVED;
 			}
 
-			return toString()+orientation.toString();				
+			return toString()+boatState.toString();				
 		}
 		
 	},
 	GOAL{
 		public String toString() {
-			return "New York";
+			return "goal";
 		}
 
-		@Override
-		public String toOrientationString(Orientation orientation) {
+		
+		public String toBoatStateString(BoatState boatState) {
 			return toString();
 		}
 	}, 
@@ -45,11 +45,11 @@ public enum ElementType {
 			return "water";
 		}
 
-		@Override
-		public String toOrientationString(Orientation orientation) {
+		
+		public String toBoatStateString(BoatState boatState) {
 			return toString();
 		}
 	};
 	
-	public abstract String toOrientationString(Orientation orientation);
+	public abstract String toBoatStateString(BoatState boatState);
 }

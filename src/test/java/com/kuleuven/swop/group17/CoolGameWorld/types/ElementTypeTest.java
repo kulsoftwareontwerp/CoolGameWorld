@@ -36,18 +36,18 @@ public class ElementTypeTest {
 	 * {@link com.kuleuven.swop.group17.CoolGameWorld.types.CoolGameWorld#toOrientationString(com.kuleuven.swop.group17.CoolGameWorld.types.CoolGameWorld)}.
 	 */
 	@Test
-	public void testToOrientationString() {
+	public void testToBoatStateString() {
 		for (ElementType et : ElementType.values()) {
-			for (Orientation o : Orientation.values()) {
+			for (BoatState o : BoatState.values()) {
 				if (et == ElementType.BOAT) {
-					assertEquals(et.toString() + o.toString(), et.toOrientationString(o));
+					assertEquals(et.toString() + o.toString(), et.toBoatStateString(o));
 				} else {
-					assertEquals(et.toString(), et.toOrientationString(o));
+					assertEquals(et.toString(), et.toBoatStateString(o));
 				}
 			}
 		}
 		
-		assertEquals(ElementType.BOAT.toString() + Orientation.UP.toString(), ElementType.BOAT.toOrientationString(null));		
+		assertEquals(ElementType.BOAT.toString() + BoatState.ARRIVED.toString(), ElementType.BOAT.toBoatStateString(null));		
 	}
 
 }

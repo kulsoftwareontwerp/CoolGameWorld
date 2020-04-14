@@ -2,6 +2,7 @@ package com.kuleuven.swop.group17.CoolGameWorld.guiLayer;
 
 import java.io.IOException;
 
+import com.kuleuven.swop.group17.CoolGameWorld.types.BoatState;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Coordinate;
 import com.kuleuven.swop.group17.CoolGameWorld.types.ElementType;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Orientation;
@@ -25,12 +26,12 @@ public class CellFactory {
 	 * @return The cell corresponding to the given parameters.
 	 * @throws NullPointerException when coordinate is null.
 	 */
-	public Cell createCell(ElementType type, Coordinate coordinate, Orientation orientation) {
+	public Cell createCell(ElementType type, Coordinate coordinate, BoatState boatState) {
 		if (coordinate == null) {
 			throw new NullPointerException("coordinate can't be null.");
 		}
 
-		return new Cell(coordinate, orientation, type);
+		return new Cell(coordinate, boatState, type);
 	}
 
 	/**

@@ -1,5 +1,6 @@
 package com.kuleuven.swop.group17.CoolGameWorld.events;
 
+import com.kuleuven.swop.group17.CoolGameWorld.types.BoatState;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Coordinate;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Orientation;
 
@@ -12,7 +13,7 @@ import com.kuleuven.swop.group17.CoolGameWorld.types.Orientation;
 public class BoatAddedEvent implements EventObject {
 
 	private Coordinate coordinate;
-	private Orientation orientation;
+	private BoatState boatState;
 	
 	/**
 	 * Create the BoatAddedEvent
@@ -22,10 +23,10 @@ public class BoatAddedEvent implements EventObject {
 	 * @param 	orientation
 	 * 			The orientation
 	 */
-	BoatAddedEvent(Coordinate coordinate, Orientation orientation) {
+	BoatAddedEvent(Coordinate coordinate, BoatState boatState) {
 		super();
 		this.coordinate = coordinate;
-		this.orientation = orientation;
+		this.boatState = boatState;
 	}
 	
 
@@ -39,13 +40,12 @@ public class BoatAddedEvent implements EventObject {
 	}
 	
 	/**
-	 * Retrieve the orientation
-	 * @return the orientation of the added boat
+	 * Retrieve the boatState
+	 * @return
 	 */
-	public Orientation getOrientation() {
-		return orientation;
+	public BoatState getBoatSate() {
+		return boatState;
 	}
-
 	
 
 }

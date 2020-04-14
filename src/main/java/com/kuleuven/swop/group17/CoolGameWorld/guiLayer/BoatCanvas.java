@@ -10,6 +10,7 @@ import com.kuleuven.swop.group17.CoolGameWorld.events.ElementsClearedEvent;
 import com.kuleuven.swop.group17.CoolGameWorld.events.GUIListener;
 import com.kuleuven.swop.group17.CoolGameWorld.events.BoatAddedEvent;
 import com.kuleuven.swop.group17.CoolGameWorld.events.BoatChangedEvent;
+import com.kuleuven.swop.group17.CoolGameWorld.types.BoatState;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Coordinate;
 import com.kuleuven.swop.group17.CoolGameWorld.types.ElementType;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Orientation;
@@ -35,12 +36,12 @@ public class BoatCanvas implements GUIListener {
 		cells.put(cell.getCoordinate(), cell);
 	}
 
-	// look for boat, set that cell to SAND
-	private void moveBoat(Coordinate coordinate, Orientation orientation) {
+	// look for boat, set that cell to WATER
+	private void moveBoat(Coordinate coordinate, BoatState boatState) {
 		try {
 			Cell previousCell = getCells().stream().filter(e -> e.getType() == ElementType.BOAT).findFirst().get();
 			previousCell.setType(null);
-			Cell boat = factory.createCell(ElementType.BOAT, coordinate, orientation);
+			Cell boat = factory.createCell(ElementType.BOAT, coordinate, boatState);
 			addCell(boat);
 
 		} catch (Exception e) {
@@ -108,11 +109,11 @@ public class BoatCanvas implements GUIListener {
 	}
 	@Override
 	public void onBoatChangeEvent(BoatChangedEvent event) {
-		moveBoat(event.getCoordinate(), event.getOrientation());
+		moveBoat(event.getCoordinate(), event.getBoatState());
 	}
 	@Override
 	public void onBoatAddedEvent(BoatAddedEvent event) {
-		addCell(factory.createCell(ElementType.BOAT, event.getCoordinate(), event.getOrientation()));
+		addCell(factory.createCell(ElementType.BOAT, event.getCoordinate(), event.getBoatSate()));
 
 	}
 

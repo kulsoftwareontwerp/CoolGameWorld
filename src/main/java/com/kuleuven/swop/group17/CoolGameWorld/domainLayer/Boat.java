@@ -1,5 +1,6 @@
 package com.kuleuven.swop.group17.CoolGameWorld.domainLayer;
 
+import com.kuleuven.swop.group17.CoolGameWorld.types.BoatState;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Coordinate;
 import com.kuleuven.swop.group17.CoolGameWorld.types.ElementType;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Orientation;
@@ -12,7 +13,7 @@ import com.kuleuven.swop.group17.CoolGameWorld.types.Orientation;
  * @author group17
  */
 public class Boat extends Element implements SolidElement {
-	private Orientation orientation;
+	private BoatState boatState;
 
 	/**
 	 * Create a Boat element.
@@ -21,26 +22,19 @@ public class Boat extends Element implements SolidElement {
 	 */
 	Boat(Coordinate coordinate) {
 		super(coordinate);
-		this.orientation = null;
+		this.boatState = BoatState.FLOATING;
 	}
 
-	/**
-	 * Retrieve the orientation
-	 * 
-	 * @return the orientation
-	 */
-	public Orientation getOrientation() {
-		return this.orientation;
+
+	
+	public BoatState getBoatState() {
+		return boatState;
 	}
 
-	/**
-	 * Set the orientation to the given orientation
-	 * 
-	 * @param orientation the orientation to which the boat orientation must be
-	 *                    set.
-	 */
-	public void setOrientation(Orientation orientation) {
-		this.orientation = orientation;
+
+	
+	public void setBoatState(BoatState state) {
+		this.boatState = state;
 	}
 
 	@Override
@@ -58,7 +52,7 @@ public class Boat extends Element implements SolidElement {
 		Boat boat = (Boat) obj;
 		if (boat.getType() != getType())
 			return false;
-		if (boat.getOrientation() != getOrientation())
+		if (boat.getBoatState() != getBoatState())
 			return false;
 
 		return true;

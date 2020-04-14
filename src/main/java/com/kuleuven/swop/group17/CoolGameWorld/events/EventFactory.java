@@ -3,6 +3,7 @@
  */
 package com.kuleuven.swop.group17.CoolGameWorld.events;
 
+import com.kuleuven.swop.group17.CoolGameWorld.types.BoatState;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Coordinate;
 import com.kuleuven.swop.group17.CoolGameWorld.types.ElementType;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Orientation;
@@ -27,8 +28,8 @@ public class EventFactory {
 	 * @param orientation The new Orientation of the Boat.
 	 * @return a new BoatChangeEvent.
 	 */
-	public BoatChangedEvent createBoatChangedEvent(Coordinate coordinate,Orientation orientation) {
-		return new BoatChangedEvent(coordinate, orientation);
+	public BoatChangedEvent createBoatChangedEvent(Coordinate coordinate,BoatState boatState) {
+		return new BoatChangedEvent(coordinate, boatState);
 	}
 	
 	/**
@@ -37,8 +38,8 @@ public class EventFactory {
 	 * @param orientation The new Orientation of the Boat.
 	 * @return a new BoatAddedEvent.
 	 */
-	public BoatAddedEvent createBoatAddedEvent(Coordinate coordinate,Orientation orientation) {
-		return new BoatAddedEvent(coordinate, orientation);
+	public BoatAddedEvent createBoatAddedEvent(Coordinate coordinate,BoatState state) {
+		return new BoatAddedEvent(coordinate, state);
 	}
 	
 	/**
