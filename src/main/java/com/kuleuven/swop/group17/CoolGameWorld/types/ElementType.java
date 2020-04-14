@@ -23,7 +23,7 @@ public enum ElementType {
 		
 		public String toBoatStateString(BoatState boatState) {
 			if(boatState==null) {
-				boatState = BoatState.ARRIVED;
+				boatState = BoatState.FLOATING;
 			}
 
 			return toString()+boatState.toString();				
@@ -37,7 +37,10 @@ public enum ElementType {
 
 		
 		public String toBoatStateString(BoatState boatState) {
-			return toString();
+			if(boatState==BoatState.ARRIVED) {
+				return toString()+boatState.toString();				
+			}
+			return toString();				
 		}
 	}, 
 	WATER{
