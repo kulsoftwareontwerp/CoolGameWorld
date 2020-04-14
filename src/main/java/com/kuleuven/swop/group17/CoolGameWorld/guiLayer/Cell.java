@@ -57,7 +57,7 @@ public class Cell {
 	 */
 	public void setBoatState(BoatState boatState) {
 		this.boatState = boatState;
-		setResourcePath("images/" + getType().toBoatStateString(getBoatState()) + ".png");
+		setResourcePath("CoolGameWorld/images/" + getType().toBoatStateString(getBoatState()) + ".png");
 		createImage();
 		
 	}
@@ -118,7 +118,7 @@ public class Cell {
 		}
 		this.type = type;
 
-		setResourcePath("images/" + getType().toBoatStateString(getBoatState()) + ".png");
+		setResourcePath("CoolGameWorld/images/" + getType().toBoatStateString(getBoatState()) + ".png");
 		createImage();
 	}
 

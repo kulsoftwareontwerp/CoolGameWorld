@@ -106,6 +106,7 @@ public class BoatCanvas implements GUIListener {
 
 	private void clearCells() {
 		cells.clear();
+		initCells();
 	}
 	@Override
 	public void onBoatChangeEvent(BoatChangedEvent event) {
