@@ -36,7 +36,7 @@ public class ElementTypeTest {
 	 * Test method for
 	 * {@link com.kuleuven.swop.group17.CoolGameWorld.types.CoolGameWorld#toOrientationString(com.kuleuven.swop.group17.CoolGameWorld.types.CoolGameWorld)}.
 	 */
-	@Ignore
+	@Test
 	public void testToBoatStateString() {
 		for (ElementType et : ElementType.values()) {
 			for (BoatState o : BoatState.values()) {
@@ -48,7 +48,7 @@ public class ElementTypeTest {
 			}
 		}
 		
-		assertEquals(ElementType.BOAT.toString() + BoatState.ARRIVED.toString(), ElementType.BOAT.toBoatStateString(null));		
+		assertEquals(ElementType.BOAT.toString() + BoatState.FLOATING.toString(), ElementType.BOAT.toBoatStateString(null));		
 	}
 
 }

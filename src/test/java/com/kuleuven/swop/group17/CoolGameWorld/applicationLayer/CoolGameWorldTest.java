@@ -180,7 +180,7 @@ public class CoolGameWorldTest {
 	 * Test method for
 	 * {@link com.kuleuven.swop.group17.CoolGameWorld.applicationLayer.CoolGameWorld#CoolGameWorld()}.
 	 */
-	@Ignore
+	@Test
 	public void testCoolGameWorldFieldsInitialised() {
 		// The constructor of the CoolGameWorld is responsible for creating the
 		// BoatController, the ElementController, the elementRepository and the

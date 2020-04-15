@@ -77,13 +77,27 @@ public class CoolGameWorld implements GameWorld {
 	}
 
 	private void initializeCoolGameWorld() {
-		boatController.addBoat(typeFactory.createCoordinate(2, 3), BoatState.FLOATING);
-		elementController.addElement(ElementType.ICEBERG, typeFactory.createCoordinate(0, 0));
-		elementController.addElement(ElementType.ICEBERG, typeFactory.createCoordinate(4, 0));
-		elementController.addElement(ElementType.ICEBERG, typeFactory.createCoordinate(1, 2));
-		elementController.addElement(ElementType.ICEBERG, typeFactory.createCoordinate(2, 2));
-		elementController.addElement(ElementType.ICEBERG, typeFactory.createCoordinate(3, 2));
-		elementController.addElement(ElementType.GOAL, typeFactory.createCoordinate(2, 1));
+		
+		
+		for (int x = 0; x <= 4; x++) {
+			elementController.addElement(ElementType.GOAL, typeFactory.createCoordinate(x, 0));
+		}
+		
+		for (int y = 1; y <= 11; y +=2) {
+			for (int x = 0; x <= 4; x+=4) {
+				elementController.addElement(ElementType.ICEBERG, typeFactory.createCoordinate(x, y));
+			}
+		}
+		
+		elementController.addElement(ElementType.ICEBERG,typeFactory.createCoordinate(1,2));
+		elementController.addElement(ElementType.ICEBERG,typeFactory.createCoordinate(2,3));
+		elementController.addElement(ElementType.ICEBERG,typeFactory.createCoordinate(3,5));
+		elementController.addElement(ElementType.ICEBERG,typeFactory.createCoordinate(2,7));
+		elementController.addElement(ElementType.ICEBERG,typeFactory.createCoordinate(3,9));
+		elementController.addElement(ElementType.ICEBERG,typeFactory.createCoordinate(2,9));
+		
+		
+		boatController.addBoat(typeFactory.createCoordinate(2, 11), BoatState.FLOATING);
 	}
 
 	/**

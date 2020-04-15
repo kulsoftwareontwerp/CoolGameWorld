@@ -19,7 +19,7 @@ public class ElementRepository {
 
 	private Collection<Element> elements;
 	private ElementFactory factory;
-	private final int gameAreaHeight=4;
+	private final int gameAreaHeight=11;
 	private final int gameAreaWidth=5;
 
 	

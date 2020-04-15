@@ -37,9 +37,6 @@ public enum ElementType {
 
 		
 		public String toBoatStateString(BoatState boatState) {
-			if(boatState==BoatState.ARRIVED) {
-				return toString()+boatState.toString();				
-			}
 			return toString();				
 		}
 	}, 

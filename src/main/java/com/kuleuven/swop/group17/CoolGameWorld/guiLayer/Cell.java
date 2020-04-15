@@ -117,7 +117,6 @@ public class Cell {
 			type = ElementType.WATER;
 		}
 		this.type = type;
-
 		setResourcePath("CoolGameWorld/images/" + getType().toBoatStateString(getBoatState()) + ".png");
 		createImage();
 	}

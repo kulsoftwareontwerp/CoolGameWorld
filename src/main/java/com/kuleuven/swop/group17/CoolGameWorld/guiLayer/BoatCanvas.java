@@ -19,7 +19,7 @@ import com.kuleuven.swop.group17.CoolGameWorld.types.TypeFactory;
 public class BoatCanvas implements GUIListener {
 	private HashMap<Coordinate, Cell> cells;
 	private CellFactory factory;
-	private final int OFFSET_GAMEAREA_CELLS = 4;
+	private final int OFFSET_GAMEAREA_CELLS = 0;
 	private static final int CELL_SIZE = 50;
 	private TypeFactory typeFactory;
 
@@ -32,7 +32,6 @@ public class BoatCanvas implements GUIListener {
 
 	private void addCell(Cell cell) {
 		cell.setCoordinateOffset(typeFactory.createCoordinate(0, OFFSET_GAMEAREA_CELLS));
-
 		cells.put(cell.getCoordinate(), cell);
 	}
 
@@ -51,31 +50,13 @@ public class BoatCanvas implements GUIListener {
 
 	private void initCells() {
 
-		// Upper Fill Cells
-		for (int x = 0; x <= 4; x++) {
-			for (int y = 0; y <= 3; y++) {
-				Coordinate coordinate = typeFactory.createCoordinate(x, y);
-				cells.put(coordinate, factory.createCell(ElementType.ICEBERG, coordinate));
-			}
-		}
-
 		// Intermediate Fill Cells (REAL CELLS)
 		for (int x = 0; x <= 4; x++) {
-			for (int y = 4; y <= 7; y++) {
+			for (int y = 0; y <= 11; y++) {
 				Coordinate coordinate = typeFactory.createCoordinate(x, y);
 				cells.put(coordinate, factory.createCell(ElementType.WATER, coordinate));
 			}
 		}
-
-		// Lower Fill Cells
-		for (int x = 0; x <= 4; x++) {
-			for (int y = 8; y <= 11; y++) {
-				Coordinate coordinate = typeFactory.createCoordinate(x, y);
-				cells.put(coordinate, factory.createCell(ElementType.ICEBERG, coordinate));
-			}
-		}
-		;
-
 	}
 
 	private Collection<Cell> getCells() {
