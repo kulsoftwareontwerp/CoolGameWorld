@@ -13,7 +13,7 @@ import com.kuleuven.swop.group17.CoolGameWorld.types.Orientation;
 public class BoatChangedEvent implements EventObject {
 
 	private Coordinate coordinate;
-	private BoatState floatingState;
+	private BoatState boatState;
 
 	/**
 	 * Create the BoatChangeEvent
@@ -24,7 +24,7 @@ public class BoatChangedEvent implements EventObject {
 	BoatChangedEvent(Coordinate coordinate,BoatState boatState) {
 		super();
 		this.coordinate = coordinate;
-		this.floatingState = boatState;
+		this.boatState = boatState;
 	}
 
 	/**
@@ -39,10 +39,10 @@ public class BoatChangedEvent implements EventObject {
 
 	/**
 	 * Retrieve the floating state of the boat.
-	 * @return
+	 * @return the state of the boat.
 	 */
 	public BoatState getBoatState() {
-		return floatingState;
+		return boatState;
 	}
 
 }

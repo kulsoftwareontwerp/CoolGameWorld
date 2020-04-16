@@ -9,7 +9,6 @@ import javax.imageio.ImageIO;
 import com.kuleuven.swop.group17.CoolGameWorld.types.BoatState;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Coordinate;
 import com.kuleuven.swop.group17.CoolGameWorld.types.ElementType;
-import com.kuleuven.swop.group17.CoolGameWorld.types.Orientation;
 import com.kuleuven.swop.group17.CoolGameWorld.types.TypeFactory;
 
 /**
@@ -28,11 +27,11 @@ public class Cell {
 	private BufferedImage image;
 
 	/**
-	 * Create a cell with the given ElementType,Orientation and Coordinate
+	 * Create a cell with the given ElementType,boatState and Coordinate
 	 * 
 	 * @param type        The ElementType corresponding to the Cell.
 	 * @param coordinate  The coordinate of the cell.
-	 * @param orientation The orientation of the cell
+	 * @param boatState 	The boatState of the cell
 	 */
 	public Cell(Coordinate coordinate, BoatState boatState, ElementType type)  {
 		setCoordinate(coordinate);
@@ -43,7 +42,7 @@ public class Cell {
 	/**
 	 * Retrieve the boatState associated with this Cell
 	 * 
-	 * @return the orientation associated with this Cell
+	 * @return the boatState associated with this Cell
 	 */
 	public BoatState getBoatState() {
 		return boatState;
@@ -53,7 +52,7 @@ public class Cell {
 	/**
 	 * Set the boatState associated with this Cell
 	 * 
-	 * @param orientation The new orientation to be associated with this Cell
+	 * @param boatState The new boatState to be associated with this Cell
 	 */
 	public void setBoatState(BoatState boatState) {
 		this.boatState = boatState;

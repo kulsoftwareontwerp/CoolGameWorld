@@ -47,14 +47,14 @@
 				</executions>
 				
 								<!--Only while in development, comment out for releases -->
-				<configuration>
+				<!-- <configuration>
 					<additionalparam>-Xdoclint:all -Xdoclint:-missing</additionalparam>
 					<additionalOptions>-Xdoclint:all -Xdoclint:-missing</additionalOptions>
 					<additionalJOptions>
 						<additionalJOption>-Xdoclint:all</additionalJOption>
 						<additionalJOption>-Xdoclint:-missing</additionalJOption>
 					</additionalJOptions>
-				</configuration>
+				</configuration>-->
 			</plugin>
 		</plugins>
 	</build>

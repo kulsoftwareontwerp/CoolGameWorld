@@ -41,7 +41,7 @@ public class BoatAddedEvent implements EventObject {
 	
 	/**
 	 * Retrieve the boatState
-	 * @return
+	 * @return the state of the boat.
 	 */
 	public BoatState getBoatSate() {
 		return boatState;

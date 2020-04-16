@@ -22,7 +22,7 @@ public class CellFactory {
 	 * 
 	 * @param type        The ElementType corresponding to the Cell.
 	 * @param coordinate  The coordinate of the cell.
-	 * @param orientation The orientation of the cell
+	 * @param boatState 	The boatState of the cell
 	 * @return The cell corresponding to the given parameters.
 	 * @throws NullPointerException when coordinate is null.
 	 */
