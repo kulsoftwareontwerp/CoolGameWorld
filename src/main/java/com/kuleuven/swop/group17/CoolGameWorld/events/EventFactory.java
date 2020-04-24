@@ -28,6 +28,12 @@ public class EventFactory {
 	 * @return a new BoatChangeEvent.
 	 */
 	public BoatChangedEvent createBoatChangedEvent(Coordinate coordinate,BoatState boatState) {
+		if(coordinate==null) {
+			throw new NullPointerException("A boat needs to have a coordinate");
+		}
+		if(boatState==null) {
+			throw new NullPointerException("A boat needs to have an boatstate");
+		}
 		return new BoatChangedEvent(coordinate, boatState);
 	}
 	
@@ -38,6 +44,12 @@ public class EventFactory {
 	 * @return a new BoatAddedEvent.
 	 */
 	public BoatAddedEvent createBoatAddedEvent(Coordinate coordinate,BoatState boatState) {
+		if(coordinate==null) {
+			throw new NullPointerException("A boat needs to have a coordinate");
+		}
+		if(boatState==null) {
+			throw new NullPointerException("A boat needs to have an boatstate");
+		}
 		return new BoatAddedEvent(coordinate, boatState);
 	}
 	
@@ -56,6 +68,12 @@ public class EventFactory {
 	 * @return a new ElementAddedEvent
 	 */
 	public ElementAddedEvent createElementAddedEvent(Coordinate coordinate,ElementType type) {
+		if(coordinate==null) {
+			throw new NullPointerException("An element needs to have a coordinate");
+		}
+		if(type==null) {
+			throw new NullPointerException("An element needs to have a type");
+		}
 		return new ElementAddedEvent(coordinate, type);
 	}
 	

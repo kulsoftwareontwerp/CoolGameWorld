@@ -5,7 +5,6 @@ import java.io.IOException;
 import com.kuleuven.swop.group17.CoolGameWorld.types.BoatState;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Coordinate;
 import com.kuleuven.swop.group17.CoolGameWorld.types.ElementType;
-import com.kuleuven.swop.group17.CoolGameWorld.types.Orientation;
 
 /**
  * The CellFactory is responsible for creating cells in the GUI.
@@ -28,7 +27,7 @@ public class CellFactory {
 	 */
 	public Cell createCell(ElementType type, Coordinate coordinate, BoatState boatState) {
 		if (coordinate == null) {
-			throw new NullPointerException("coordinate can't be null.");
+			throw new IllegalArgumentException("coordinate can't be null.");
 		}
 
 		return new Cell(coordinate, boatState, type);

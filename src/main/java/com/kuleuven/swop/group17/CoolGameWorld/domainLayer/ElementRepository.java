@@ -27,7 +27,7 @@ public class ElementRepository {
 	/**
 	 * Create a new ElementRepository
 	 */
-	ElementRepository() {
+	public ElementRepository() {
 		factory=new ElementFactory();
 		elements=new HashSet<Element>();
 	}
@@ -41,6 +41,8 @@ public class ElementRepository {
 	 * @return a set with all elements on the given coordinate.
 	 */
 	public Set<Element> getElements(Coordinate coordinate) {
+		if(coordinate == null)
+			throw new NullPointerException("Can't retrieve an element with a Coordinate of NULL");
 		HashSet<Element> resultSet = new HashSet<Element>();
 		
 		Iterator<Element> iterator = getElements().iterator();
@@ -60,6 +62,10 @@ public class ElementRepository {
 	 * @param coordinate	The coordinate of the element.
 	 */
 	public void addElement(ElementType type, Coordinate coordinate) {
+		if(type == null)
+			throw new IllegalArgumentException("Illegal elementType to create: " + type);
+		if(coordinate == null)
+			throw new IllegalArgumentException("Coordinate can't be null");
 		Element el = factory.createElement(type, coordinate);
 		elements.add(el);
 	}
@@ -97,6 +103,8 @@ public class ElementRepository {
 	 * @return a set with all elements of the given type.
 	 */
 	public Set<Element> getElementByType(ElementType type) {
+		if(type == null)
+			throw new NullPointerException("Can't retrieve an element with a type of NULL");
 		return elements.stream().filter(s->s.getType()==type).collect(Collectors.toSet());
 		
 	}

@@ -23,6 +23,10 @@ public class ElementFactory {
 	 * @return an element with the givent type and coordinate.
 	 */
 	public Element createElement(ElementType type, Coordinate coordinate) {
+		if(type == null)
+			throw new IllegalArgumentException("Illegal elementType to create: " + type);
+		if(coordinate == null)
+			throw new IllegalArgumentException("Coordinate can't be null");
 		Element element;
 		switch (type) {
 		case GOAL:

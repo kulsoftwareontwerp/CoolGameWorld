@@ -2,7 +2,6 @@ package com.kuleuven.swop.group17.CoolGameWorld.events;
 
 import com.kuleuven.swop.group17.CoolGameWorld.types.BoatState;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Coordinate;
-import com.kuleuven.swop.group17.CoolGameWorld.types.Orientation;
 
 /**
  * The event thrown when the boat has been changed in the domain.

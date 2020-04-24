@@ -34,6 +34,12 @@ public class Cell {
 	 * @param boatState 	The boatState of the cell
 	 */
 	public Cell(Coordinate coordinate, BoatState boatState, ElementType type)  {
+		if(coordinate == null)
+			throw new IllegalArgumentException("coordinate can't be null.");
+		if(type == null)
+			setType(ElementType.WATER);
+		else
+			setType(type);
 		setCoordinate(coordinate);
 		setType(type);
 		setBoatState(boatState);
@@ -70,7 +76,7 @@ public class Cell {
 	 */
 	public void setCoordinate(Coordinate coordinate) {
 		if (coordinate == null) {
-			throw new NullPointerException("coordinate can't be null.");
+			throw new IllegalArgumentException("coordinate can't be null.");
 		}
 		this.coordinate = coordinate;
 	}
@@ -82,7 +88,7 @@ public class Cell {
 	 */
 	public void setCoordinateOffset(Coordinate offset) {
 		if (offset == null) {
-			throw new NullPointerException("offset can't be null.");
+			throw new IllegalArgumentException("offset can't be null.");
 		}
 		coordinate = coordinate.setX(coordinate.getX() + offset.getX());
 		coordinate = coordinate.setY(coordinate.getY() + offset.getY());

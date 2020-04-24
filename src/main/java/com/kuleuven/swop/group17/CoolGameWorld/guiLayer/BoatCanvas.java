@@ -3,7 +3,6 @@ package com.kuleuven.swop.group17.CoolGameWorld.guiLayer;
 import java.awt.Graphics;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 
 import com.kuleuven.swop.group17.CoolGameWorld.events.ElementAddedEvent;
 import com.kuleuven.swop.group17.CoolGameWorld.events.ElementsClearedEvent;
@@ -13,7 +12,6 @@ import com.kuleuven.swop.group17.CoolGameWorld.events.BoatChangedEvent;
 import com.kuleuven.swop.group17.CoolGameWorld.types.BoatState;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Coordinate;
 import com.kuleuven.swop.group17.CoolGameWorld.types.ElementType;
-import com.kuleuven.swop.group17.CoolGameWorld.types.Orientation;
 import com.kuleuven.swop.group17.CoolGameWorld.types.TypeFactory;
 
 public class BoatCanvas implements GUIListener {
@@ -69,6 +67,8 @@ public class BoatCanvas implements GUIListener {
 	 * @param g the graphics on which the BoatGameArea should be drawn.
 	 */
 	public void paint(Graphics g) {
+		if(g == null)
+			throw new IllegalArgumentException("Graphics object can't be null");
 		g.drawLine(0, 0, 0, g.getClipBounds().height);
 		g.drawLine(0, 200, g.getClipBounds().width, 200);
 		g.drawLine(0, 400, g.getClipBounds().width, 400);
@@ -91,21 +91,29 @@ public class BoatCanvas implements GUIListener {
 	}
 	@Override
 	public void onBoatChangeEvent(BoatChangedEvent event) {
+		if(event == null)
+			throw new IllegalArgumentException("event can't be null");
 		moveBoat(event.getCoordinate(), event.getBoatState());
 	}
 	@Override
 	public void onBoatAddedEvent(BoatAddedEvent event) {
+		if(event == null)
+			throw new IllegalArgumentException("event can't be null");
 		addCell(factory.createCell(ElementType.BOAT, event.getCoordinate(), event.getBoatSate()));
 
 	}
 
 	@Override
 	public void onElementAddedEvent(ElementAddedEvent event) {
+		if(event == null)
+			throw new IllegalArgumentException("event can't be null");
 		addCell(factory.createCell(event.getType(), event.getCoordinate()));
 	}
 
 	@Override
 	public void onElementsClearedEvent(ElementsClearedEvent event) {
+		if(event == null)
+			throw new IllegalArgumentException("event can't be null");
 		clearCells();
 
 	}

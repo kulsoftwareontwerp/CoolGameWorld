@@ -38,6 +38,8 @@ public abstract class Element implements Cloneable {
 	 * @param coordinate The coordinate to set this element to.
 	 */
 	public void setCoordinate(Coordinate coordinate) {
+		if(coordinate == null)
+			throw new IllegalArgumentException("Coordinate can't be null");
 		this.coordinate = coordinate;
 	}
 

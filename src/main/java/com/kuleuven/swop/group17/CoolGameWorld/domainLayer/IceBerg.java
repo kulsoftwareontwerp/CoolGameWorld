@@ -30,11 +30,7 @@ public class IceBerg extends Element implements SolidElement {
 	public boolean equals(Object obj) {
 		if (!super.equals(obj))
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
-
-		IceBerg wall = (IceBerg) obj;
-		if (wall.getType() != getType())
+		if(!(obj instanceof IceBerg))
 			return false;
 
 		return true;

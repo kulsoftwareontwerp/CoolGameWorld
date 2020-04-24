@@ -3,7 +3,6 @@ package com.kuleuven.swop.group17.CoolGameWorld.domainLayer;
 import com.kuleuven.swop.group17.CoolGameWorld.types.BoatState;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Coordinate;
 import com.kuleuven.swop.group17.CoolGameWorld.types.ElementType;
-import com.kuleuven.swop.group17.CoolGameWorld.types.Orientation;
 
 /**
  * A boat is a type of element in the CoolGameWorld, it has a type, a
@@ -34,7 +33,10 @@ public class Boat extends Element implements SolidElement {
 
 	
 	public void setBoatState(BoatState state) {
-		this.boatState = state;
+		if(state == null)
+			this.boatState = BoatState.FLOATING;
+		else
+			this.boatState = state;
 	}
 
 	@Override
@@ -45,8 +47,6 @@ public class Boat extends Element implements SolidElement {
 	@Override
 	public boolean equals(Object obj) {
 		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
 			return false;
 
 		Boat boat = (Boat) obj;

@@ -15,7 +15,6 @@ import com.kuleuven.swop.group17.CoolGameWorld.guiLayer.GuiFactory;
 import com.kuleuven.swop.group17.CoolGameWorld.guiLayer.BoatCanvas;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Coordinate;
 import com.kuleuven.swop.group17.CoolGameWorld.types.ElementType;
-import com.kuleuven.swop.group17.CoolGameWorld.types.Orientation;
 import com.kuleuven.swop.group17.CoolGameWorld.types.BoatState;
 import com.kuleuven.swop.group17.CoolGameWorld.types.CoolGameWorldAction;
 import com.kuleuven.swop.group17.CoolGameWorld.types.CoolGameWorldPredicate;

@@ -41,7 +41,6 @@ import com.kuleuven.swop.group17.CoolGameWorld.events.GUIListener;
 import com.kuleuven.swop.group17.CoolGameWorld.types.BoatState;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Coordinate;
 import com.kuleuven.swop.group17.CoolGameWorld.types.ElementType;
-import com.kuleuven.swop.group17.CoolGameWorld.types.Orientation;
 import com.kuleuven.swop.group17.CoolGameWorld.types.TypeFactory;
 
 /**
