@@ -1,16 +1,17 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.kuleuven.swop.group17</groupId>
-  <artifactId>CoolGameWorld</artifactId>
-  <version>0.2</version>
-  <packaging>jar</packaging>
+	<groupId>com.kuleuven.swop.group17</groupId>
+	<artifactId>CoolGameWorld</artifactId>
+	<version>0.2.4</version>
+	<packaging>jar</packaging>
 
-  <name>CoolGameWorld</name>
-  <url>http://maven.apache.org</url>
+	<name>CoolGameWorld</name>
+	<url>http://maven.apache.org</url>
 
-  <properties>
+	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -44,6 +45,16 @@
 						</goals>
 					</execution>
 				</executions>
+				
+								<!--Only while in development, comment out for releases -->
+				<!-- <configuration>
+					<additionalparam>-Xdoclint:all -Xdoclint:-missing</additionalparam>
+					<additionalOptions>-Xdoclint:all -Xdoclint:-missing</additionalOptions>
+					<additionalJOptions>
+						<additionalJOption>-Xdoclint:all</additionalJOption>
+						<additionalJOption>-Xdoclint:-missing</additionalJOption>
+					</additionalJOptions>
+				</configuration>-->
 			</plugin>
 		</plugins>
 	</build>
