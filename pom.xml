@@ -83,7 +83,7 @@
 		<repository>
 			<id>github</id>
 			<name>CoolGameWorld</name>
-			<url>https://maven.pkg.github.com/ArneLibbrecht/CoolGameWorld</url>
+			<url>https://maven.pkg.github.com/kulsoftwareontwerp/CoolGameWorld</url>
 		</repository>
 	</distributionManagement>
 </project>
