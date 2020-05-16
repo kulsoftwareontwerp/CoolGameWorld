@@ -89,7 +89,7 @@ public class BoatTest {
 	 */
 	@SuppressWarnings("unlikely-arg-type")
 	@Test
-	public void testEqualsOtherClass() {
+	public void testEqualsOtherSuperClass() {
 		Boat g = new Boat(tf.createCoordinate(5, 3));
 		assertFalse(g.equals(ElementType.WATER));
 	}
@@ -99,7 +99,7 @@ public class BoatTest {
 	 * {@link com.kuleuven.swop.group17.BoatGameWorld.domainLayer.Boat#equals(java.lang.Object)}.
 	 */
 	@Test
-	public void testEqualsCoordinate() {
+	public void testEqualsNotEqualCoordinates() {
 		Boat g = new Boat(tf.createCoordinate(5, 3));
 		Boat g2 = new Boat(tf.createCoordinate(3, 2));
 		assertFalse(g.equals(g2));
@@ -137,6 +137,8 @@ public class BoatTest {
 	public void testEqualsClassVsType() {
 		Boat g = new Boat(tf.createCoordinate(5, 3));
 		IceBerg g2 = mock(IceBerg.class);
+		when(g2.getType()).thenReturn(ElementType.BOAT);
+		when(g2.getCoordinate()).thenReturn(tf.createCoordinate(5, 3));
 		assertFalse(g.equals(g2));
 	}
 
@@ -150,7 +152,7 @@ public class BoatTest {
 		g.setBoatState(BoatState.FLOATING);
 		Boat g2 = new Boat(tf.createCoordinate(5, 3));
 		g2.setBoatState(BoatState.CRASHED);
-		assertFalse(g.equals(g2));
+		assertFalse(g.equals(g2));//Werkt
 	}
 
 	/**
@@ -260,17 +262,17 @@ public class BoatTest {
 	 * Test method for
 	 * {@link com.kuleuven.swop.group17.BoatGameWorld.domainLayer.Element#clone()}.
 	 */
-//	@Test(expected = RuntimeException.class)
-//	public void testCloneCloneNotSupported() {
-//		Boat w = new Boat(tf.createCoordinate(5, 3));
-//		try {
-//			Field f = Element.class.getDeclaredField("cloneSupported");
-//			f.setAccessible(true);
-//			f.set(w, false);
-//		} catch (IllegalArgumentException | NoSuchFieldException | SecurityException | IllegalAccessException e) {
-//			e.printStackTrace();
-//		}
-//		w.clone();
-//
-//	}
+	@Test(expected = RuntimeException.class)
+	public void testCloneCloneNotSupported() {
+		Boat w = new Boat(tf.createCoordinate(5, 3));
+		try {
+			Field f = Element.class.getDeclaredField("cloneSupported");
+			f.setAccessible(true);
+			f.set(w, false);
+		} catch (IllegalArgumentException | NoSuchFieldException | SecurityException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		w.clone();
+
+	}
 }

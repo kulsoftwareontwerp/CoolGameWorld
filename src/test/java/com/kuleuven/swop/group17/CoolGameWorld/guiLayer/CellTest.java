@@ -22,7 +22,6 @@ import com.kuleuven.swop.group17.CoolGameWorld.types.BoatState;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Coordinate;
 import com.kuleuven.swop.group17.CoolGameWorld.types.ElementType;
 import com.kuleuven.swop.group17.CoolGameWorld.types.TypeFactory;
-
 @RunWith(MockitoJUnitRunner.class)
 public class CellTest {
 	private TypeFactory tf;
@@ -417,6 +416,20 @@ public class CellTest {
 		
 		assertNotEquals(c, c2);
 	}
+	
+	/**
+	 * Test method for
+	 * {@link com.kuleuven.swop.group17.CoolGameWorld.guiLayer.Cell#equals(java.lang.Object)}.
+	 */
+	@Test
+	public void testEqualsCoordinateNull() {
+		Cell c = new Cell(tf.createCoordinate(5, 1), BoatState.FLOATING, ElementType.GOAL);
+		Cell c2 = new Cell(tf.createCoordinate(2, 1), BoatState.FLOATING, ElementType.GOAL);
+		
+		assertNotEquals(c, c2);
+	}
+	
+	
 	/**
 	 * Test method for
 	 * {@link com.kuleuven.swop.group17.CoolGameWorld.guiLayer.Cell#equals(java.lang.Object)}.
@@ -428,4 +441,22 @@ public class CellTest {
 		
 		assertNotEquals(c, c2);
 	}
+	
+	@Test(expected=RuntimeException.class)
+	public void testCreateImageIOException() {
+		Cell cell = new Cell(tf.createCoordinate(5, 1) ,null, ElementType.GOAL);
+		
+		try {
+			Field f = Cell.class.getDeclaredField("triggerIOException");
+			f.setAccessible(true);
+			f.set(cell, true);
+		}catch(Exception e) {
+			System.err.println(e);
+		}
+		
+		cell.setBoatState(null);
+
+	}
+	
+	
 }

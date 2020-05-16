@@ -13,6 +13,7 @@ import com.kuleuven.swop.group17.CoolGameWorld.types.ElementType;
 public abstract class Element implements Cloneable {
 
 	private Coordinate coordinate;
+	private boolean cloneSupported;
 
 	/**
 	 * Create an element given a certain coordinate
@@ -21,6 +22,7 @@ public abstract class Element implements Cloneable {
 	 */
 	Element(Coordinate coordinate) {
 		setCoordinate(coordinate);
+		this.cloneSupported = true;
 	}
 
 	/**
@@ -53,7 +55,18 @@ public abstract class Element implements Cloneable {
 	@Override
 	public Element clone() {
 		try {
-			return (Element) super.clone();
+			/**
+			 * CloneNotSupportedException is a very stupid checked exception that's thrown
+			 * when a class doesn't implement the cloneable interface or when the class
+			 * itself wants to throw a not cloneableException. Hence it won't be able to be
+			 * thrown in a normal scenario. That's why there's a private flag here with the
+			 * only goal to use reflection in the tests to trigger the exception.
+			 */
+			if (cloneSupported) {
+				return (Element) super.clone();
+			} else {
+				throw new CloneNotSupportedException();
+			}
 		} catch (CloneNotSupportedException e) {
 			throw new RuntimeException(e);
 		}
@@ -63,7 +76,7 @@ public abstract class Element implements Cloneable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((coordinate == null) ? 0 : coordinate.hashCode());
+		result = prime * result + coordinate.hashCode();
 		return result;
 	}
 
@@ -73,13 +86,12 @@ public abstract class Element implements Cloneable {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof Element))
 			return false;
 		Element other = (Element) obj;
-		if (coordinate == null) {
-			if (other.coordinate != null)
-				return false;
-		} else if (!coordinate.equals(other.coordinate))
+		if (!getCoordinate().equals(other.getCoordinate()))
+			return false;
+		if (other.getType() != getType())
 			return false;
 		return true;
 	}

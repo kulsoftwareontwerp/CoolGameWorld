@@ -43,6 +43,7 @@ import com.kuleuven.swop.group17.CoolGameWorld.events.ElementsClearedEvent;
 import com.kuleuven.swop.group17.CoolGameWorld.events.EventFactory;
 import com.kuleuven.swop.group17.CoolGameWorld.types.BoatState;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Coordinate;
+import com.kuleuven.swop.group17.CoolGameWorld.types.CoordinateTest;
 import com.kuleuven.swop.group17.CoolGameWorld.types.ElementType;
 import com.kuleuven.swop.group17.CoolGameWorld.types.TypeFactory;
 
@@ -118,16 +119,18 @@ public class BoatCanvasTest {
 	@Test
 	public void testPaint() {
 		Graphics g = spy(Graphics.class);
+		cells.put(mock(Coordinate.class), new Cell(mock(Coordinate.class), null,null));
+
 		when(g.getClipBounds()).thenReturn(new Rectangle(500, 600));
 		canvas.paint(g);
 		verify(g, atLeastOnce()).drawLine(any(Integer.class), any(Integer.class), any(Integer.class),
 				any(Integer.class));
-		//verify(g, atLeastOnce()).drawImage(any(Image.class), any(Integer.class), any(Integer.class), any());
+		verify(g, atLeastOnce()).drawImage(any(Image.class), any(Integer.class), any(Integer.class), any());
 
 	}
 	/**
 	 * Test method for
-	 * {@link com.kuleuven.swop.group17.BoatGameWorld.guiLayer.BoatCanvas#paint(java.awt.Graphics)}.
+	 * {@link com.kuleuven.swop.group17.RobotGameWorld.guiLayer.RobotCanvas#paint(java.awt.Graphics)}.
 	 */
 	@Test
 	public void testPaintNullGraphics() {

@@ -48,10 +48,9 @@ public class Boat extends Element implements SolidElement {
 	public boolean equals(Object obj) {
 		if (!super.equals(obj))
 			return false;
-
-		Boat boat = (Boat) obj;
-		if (boat.getType() != getType())
+		if (!(obj instanceof Boat))
 			return false;
+		Boat boat = (Boat) obj;
 		if (boat.getBoatState() != getBoatState())
 			return false;
 

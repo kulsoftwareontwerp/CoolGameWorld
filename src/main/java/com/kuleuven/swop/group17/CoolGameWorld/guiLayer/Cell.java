@@ -9,7 +9,6 @@ import javax.imageio.ImageIO;
 import com.kuleuven.swop.group17.CoolGameWorld.types.BoatState;
 import com.kuleuven.swop.group17.CoolGameWorld.types.Coordinate;
 import com.kuleuven.swop.group17.CoolGameWorld.types.ElementType;
-import com.kuleuven.swop.group17.CoolGameWorld.types.TypeFactory;
 
 /**
  * A Cell is the visual representation of an Element. No element corresponds to
@@ -25,6 +24,8 @@ public class Cell {
 	private Coordinate coordinate;
 	private BoatState boatState;
 	private BufferedImage image;
+	
+	private boolean triggerIOException;
 
 	/**
 	 * Create a cell with the given ElementType,boatState and Coordinate
@@ -34,6 +35,7 @@ public class Cell {
 	 * @param boatState 	The boatState of the cell
 	 */
 	public Cell(Coordinate coordinate, BoatState boatState, ElementType type)  {
+		triggerIOException = false;
 		if(coordinate == null)
 			throw new IllegalArgumentException("coordinate can't be null.");
 		if(type == null)
@@ -144,6 +146,9 @@ public class Cell {
 			throw new IllegalArgumentException("image for Cell is not found ");
 		} else {
 			try {
+				if(triggerIOException) {
+					throw new IOException();
+				}
 				image = ImageIO.read(in);
 			} catch (IOException e) {
 				System.err.println("Got an error while loading in image");
@@ -166,8 +171,8 @@ public class Cell {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((coordinate == null) ? 0 : coordinate.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		result = prime * result + coordinate.hashCode();
+		result = prime * result + type.hashCode();
 		return result;
 	}
 
@@ -180,10 +185,7 @@ public class Cell {
 		if (getClass() != obj.getClass())
 			return false;
 		Cell other = (Cell) obj;
-		if (coordinate == null) {
-			if (other.coordinate != null)
-				return false;
-		} else if (!coordinate.equals(other.coordinate))
+		if (!coordinate.equals(other.coordinate))
 			return false;
 		if (type != other.type)
 			return false;

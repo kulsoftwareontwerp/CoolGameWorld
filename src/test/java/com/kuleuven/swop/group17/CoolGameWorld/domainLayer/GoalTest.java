@@ -121,6 +121,8 @@ public class GoalTest {
 	public void testEqualsClassVsType() {
 		Goal g = new Goal(tf.createCoordinate(5,3));
 		IceBerg g2 = mock(IceBerg.class);
+		when(g2.getType()).thenReturn(ElementType.GOAL);
+		when(g2.getCoordinate()).thenReturn(tf.createCoordinate(5, 3));
 		assertFalse(g.equals(g2));
 	}
 	/**
@@ -185,17 +187,17 @@ public class GoalTest {
 	 * Test method for
 	 * {@link com.kuleuven.swop.group17.RobotGameWorld.domainLayer.Element#clone()}.
 	 */
-//	@Test(expected = RuntimeException.class)
-//	public void testCloneCloneNotSupported() {
-//		Goal w = new Goal(tf.createCoordinate(5, 3));
-//		try {
-//			Field f = Element.class.getDeclaredField("cloneSupported");
-//			f.setAccessible(true);
-//			f.set(w, false);
-//		} catch (IllegalArgumentException | NoSuchFieldException | SecurityException | IllegalAccessException e) {
-//			e.printStackTrace();
-//		}
-//		w.clone();
-//
-//	}
+	@Test(expected = RuntimeException.class)
+	public void testCloneCloneNotSupported() {
+		Goal w = new Goal(tf.createCoordinate(5, 3));
+		try {
+			Field f = Element.class.getDeclaredField("cloneSupported");
+			f.setAccessible(true);
+			f.set(w, false);
+		} catch (IllegalArgumentException | NoSuchFieldException | SecurityException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		w.clone();
+
+	}
 }
