@@ -146,6 +146,16 @@ public class IceBergTest {
 		IceBerg g2 = new IceBerg(tf.createCoordinate(5, 3));
 		assertFalse(g2.equals(2));
 	}
+	
+	@SuppressWarnings("unlikely-arg-type")
+	@Test
+	public void testEqualsClassVsType() {
+		IceBerg g = new IceBerg(tf.createCoordinate(5, 3));
+		Boat g2 = mock(Boat.class);
+		when(g2.getType()).thenReturn(ElementType.ICEBERG);
+		when(g2.getCoordinate()).thenReturn(tf.createCoordinate(5, 3));
+		assertFalse(g.equals(g2));
+	}
 
 	/**
 	 * Test method for
@@ -209,6 +219,20 @@ public class IceBergTest {
 		IceBerg clone = (IceBerg) w.clone();
 		assertTrue(clone != w);
 		assertTrue(clone.equals(w));
+	}
+	
+	@Test(expected = RuntimeException.class)
+	public void testCloneCloneNotSupported() {
+		IceBerg w = new IceBerg(tf.createCoordinate(5, 3));
+		try {
+			Field f = Element.class.getDeclaredField("cloneSupported");
+			f.setAccessible(true);
+			f.set(w, false);
+		} catch (IllegalArgumentException | NoSuchFieldException | SecurityException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		w.clone();
+
 	}
 
 }

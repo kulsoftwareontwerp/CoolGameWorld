@@ -67,22 +67,16 @@ public class BoatCanvas implements GUIListener {
 	 * @param g the graphics on which the BoatGameArea should be drawn.
 	 */
 	public void paint(Graphics g) {
-		if(g == null)
+		if (g == null) {
 			throw new IllegalArgumentException("Graphics object can't be null");
+		}
 		g.drawLine(0, 0, 0, g.getClipBounds().height);
 		g.drawLine(0, 200, g.getClipBounds().width, 200);
 		g.drawLine(0, 400, g.getClipBounds().width, 400);
-		try {
-			for (Cell cell : getCells()) {
-
-				g.drawImage(cell.getImage(), cell.getCoordinate().getX() * CELL_SIZE,
-						cell.getCoordinate().getY() * CELL_SIZE, null);
-
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		for (Cell cell : getCells()) {
+			g.drawImage(cell.getImage(), cell.getCoordinate().getX() * CELL_SIZE,
+					cell.getCoordinate().getY() * CELL_SIZE, null);
 		}
-
 	}
 
 	private void clearCells() {
