@@ -5,11 +5,11 @@
 
 	<groupId>com.kuleuven.swop.group17</groupId>
 	<artifactId>CoolGameWorld</artifactId>
-	<version>0.2.5</version>
+	<version>0.2.6</version>
 	<packaging>jar</packaging>
 
 	<name>CoolGameWorld</name>
-	<url>http://maven.apache.org</url>
+	<url>https://github.com/kulsoftwareontwerp/CoolGameWorld</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -47,14 +47,14 @@
 				</executions>
 				
 								<!--Only while in development, comment out for releases -->
-				<!-- <configuration>
+				<configuration>
 					<additionalparam>-Xdoclint:all -Xdoclint:-missing</additionalparam>
 					<additionalOptions>-Xdoclint:all -Xdoclint:-missing</additionalOptions>
 					<additionalJOptions>
 						<additionalJOption>-Xdoclint:all</additionalJOption>
 						<additionalJOption>-Xdoclint:-missing</additionalJOption>
 					</additionalJOptions>
-				</configuration>-->
+				</configuration> 
 			</plugin>
 		</plugins>
 	</build>
