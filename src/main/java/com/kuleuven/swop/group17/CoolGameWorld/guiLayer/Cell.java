@@ -3,6 +3,8 @@ package com.kuleuven.swop.group17.CoolGameWorld.guiLayer;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -23,25 +25,31 @@ public class Cell {
 	private String resourcePath;
 	private Coordinate coordinate;
 	private BoatState boatState;
-	private BufferedImage image;
-	
+
+	private static Map<String, BufferedImage> cachedImages;
+
 	private boolean triggerIOException;
 
 	/**
 	 * Create a cell with the given ElementType,boatState and Coordinate
 	 * 
-	 * @param type        The ElementType corresponding to the Cell.
-	 * @param coordinate  The coordinate of the cell.
-	 * @param boatState 	The boatState of the cell
+	 * @param type       The ElementType corresponding to the Cell.
+	 * @param coordinate The coordinate of the cell.
+	 * @param boatState  The boatState of the cell
 	 */
-	public Cell(Coordinate coordinate, BoatState boatState, ElementType type)  {
-		triggerIOException = false;
-		if(coordinate == null)
+	public Cell(Coordinate coordinate, BoatState boatState, ElementType type) {
+		if (coordinate == null) {
 			throw new IllegalArgumentException("coordinate can't be null.");
-		if(type == null)
+		}
+		if (cachedImages == null) {
+			cachedImages = new HashMap<String, BufferedImage>();
+		}
+		if (type == null) {
 			setType(ElementType.WATER);
-		else
+		} else {
 			setType(type);
+		}
+		triggerIOException = false;
 		setCoordinate(coordinate);
 		setType(type);
 		setBoatState(boatState);
@@ -55,8 +63,7 @@ public class Cell {
 	public BoatState getBoatState() {
 		return boatState;
 	}
-	
-	
+
 	/**
 	 * Set the boatState associated with this Cell
 	 * 
@@ -66,10 +73,8 @@ public class Cell {
 		this.boatState = boatState;
 		setResourcePath("CoolGameWorld/images/" + getType().toBoatStateString(getBoatState()) + ".png");
 		createImage();
-		
+
 	}
-	
-	
 
 	/**
 	 * Set the Coordinate of this Cell.
@@ -119,7 +124,7 @@ public class Cell {
 	 * 
 	 * @param type The elementType to set the type of this cell to.
 	 */
-	public void setType(ElementType type)  {
+	public void setType(ElementType type) {
 		if (type == null) {
 			type = ElementType.WATER;
 		}
@@ -127,7 +132,6 @@ public class Cell {
 		setResourcePath("CoolGameWorld/images/" + getType().toBoatStateString(getBoatState()) + ".png");
 		createImage();
 	}
-
 
 	private String getResourcePath() {
 		return resourcePath;
@@ -138,24 +142,27 @@ public class Cell {
 
 	}
 
-	private void createImage()  {
-		BufferedImage image;
-		InputStream in = getClass().getClassLoader().getResourceAsStream(getResourcePath());
+	private void createImage() {
+		if (!cachedImages.containsKey(getResourcePath())||triggerIOException) {
 
-		if (in == null) {
-			throw new IllegalArgumentException("image for Cell is not found ");
-		} else {
-			try {
-				if(triggerIOException) {
-					throw new IOException();
+			BufferedImage image;
+			InputStream in = getClass().getClassLoader().getResourceAsStream(getResourcePath());
+
+			if (in == null) {
+				throw new IllegalArgumentException("image for Cell is not found");
+			} else {
+				try {
+					if (triggerIOException) {
+						throw new IOException();
+					}
+					image = ImageIO.read(in);
+				} catch (IOException e) {
+					System.err.println("Got an error while loading in image");
+					throw new RuntimeException(e);
 				}
-				image = ImageIO.read(in);
-			} catch (IOException e) {
-				System.err.println("Got an error while loading in image");
-				throw new RuntimeException(e);
 			}
+			cachedImages.put(getResourcePath(),image);
 		}
-		this.image = image;
 	}
 
 	/**
@@ -164,7 +171,7 @@ public class Cell {
 	 * @return the image associated with this Cell
 	 */
 	public BufferedImage getImage() {
-		return image;
+		return cachedImages.get(getResourcePath());
 	}
 
 	@Override

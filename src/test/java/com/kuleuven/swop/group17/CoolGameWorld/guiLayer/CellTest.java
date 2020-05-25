@@ -3,6 +3,7 @@ package com.kuleuven.swop.group17.CoolGameWorld.guiLayer;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.mock;
@@ -121,11 +122,14 @@ public class CellTest {
 			f = Cell.class.getDeclaredField("type");
 			f.setAccessible(true);
 			assertEquals(ElementType.ICEBERG, f.get(c));
-			f = Cell.class.getDeclaredField("image");
+			f = Cell.class.getDeclaredField("cachedImages");
+			f.setAccessible(true);
+			assertNotNull(f.get(c));
+			f = Cell.class.getDeclaredField("resourcePath");
 			f.setAccessible(true);
 			assertNotNull(f.get(c));
 		} catch (Exception e) {
-			System.err.println(e);
+			fail("fields were not initialized correctly");
 		}
 
 	}
